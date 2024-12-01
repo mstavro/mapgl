@@ -16,12 +16,14 @@ HTMLWidgets.widget({
                 }
 
                 el.innerHTML = `
-          <div id="${x.elementId}-before" class="map" style="width: 100%; height: 100%; position: absolute;"></div>
-          <div id="${x.elementId}-after" class="map" style="width: 100%; height: 100%; position: absolute;"></div>
+                <div id="combined" class="map" style="width: 100%; height: 100%; position: relative; display: flex;">
+          <div id="before" class="map" style="width: 100%; height: 100%; position: absolute;"></div>
+          <div id="after" class="map" style="width: 100%; height: 100%; position: absolute;"></div>
+                </div>
         `;
 
                 var beforeMap = new mapboxgl.Map({
-                    container: `${x.elementId}-before`,
+                    container: `before`,
                     style: x.map1.style,
                     center: x.map1.center,
                     zoom: x.map1.zoom,
@@ -33,7 +35,7 @@ HTMLWidgets.widget({
                 });
 
                 var afterMap = new mapboxgl.Map({
-                    container: `${x.elementId}-after`,
+                    container: `after`,
                     style: x.map2.style,
                     center: x.map2.center,
                     zoom: x.map2.zoom,
@@ -44,9 +46,14 @@ HTMLWidgets.widget({
                     ...x.map2.additional_params,
                 });
 
-                new mapboxgl.Compare(beforeMap, afterMap, `#${x.elementId}`, {
-                    mousemove: x.mousemove,
-                    orientation: x.orientation,
+                Promise.all([
+                    new Promise(resolve => beforeMap.on('load', resolve)),
+                    new Promise(resolve => afterMap.on('load', resolve))
+                ]).then(() => {
+                    new mapboxgl.Compare(beforeMap, afterMap, `#combined`, {
+                        mousemove: x.mousemove,
+                        orientation: x.orientation,
+                    });
                 });
 
                 // Ensure both maps resize correctly
