@@ -4,12 +4,10 @@
 \alias{renderCompare}
 \title{Render a Compare output element in Shiny}
 \usage{
-renderCompare(expr, type, env = parent.frame(), quoted = FALSE)
+renderCompare(expr, env = parent.frame(), quoted = FALSE)
 }
 \arguments{
 \item{expr}{An expression that generates a Compare element}
-
-\item{type}{The type of map comparison, either 'maplibregl' or 'mapboxgl'}
 
 \item{env}{The environment in which to evaluate \code{expr}}
 
