@@ -134,7 +134,7 @@ compare.maplibre <- function(map1, map2, width, height, elementId, mousemove, or
 #' @return A Compare output element for use in a Shiny UI
 #' @export
 compareOutput <- function(outputId, type, width = "100%", height = "400px"){
-    stopifnot("Type must be either 'maplibregl' or 'mapboxgl'" = type == "maplibregl" | type == "mapboxgl") %>% try()
+    stopifnot("Type must be either 'maplibregl' or 'mapboxgl'" = type == "maplibregl" | type == "mapboxgl") |> try()
     if(
          type == "maplibregl")
     {
