@@ -23,7 +23,7 @@ HTMLWidgets.widget({
         `;
 
                 var beforeMap = new mapboxgl.Map({
-                    container: `before`,
+                    container: `${x.elementId}-before`,
                     style: x.map1.style,
                     center: x.map1.center,
                     zoom: x.map1.zoom,
@@ -35,7 +35,7 @@ HTMLWidgets.widget({
                 });
 
                 var afterMap = new mapboxgl.Map({
-                    container: `after`,
+                    container: `${x.elementId}-after`,
                     style: x.map2.style,
                     center: x.map2.center,
                     zoom: x.map2.zoom,
